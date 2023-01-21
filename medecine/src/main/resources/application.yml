@@ -1,0 +1,50 @@
+spring:
+  profiles:
+    active: dev, jasypt
+  #    active: prod
+
+  #DB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    tomcat:
+      test-on-borrow: true
+      validation-query: SELECT 1
+
+  #JPA
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
+        format_sql: true
+
+  #PROD
+  main:
+    allow-bean-definition-overriding: true
+
+  #FILE
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
+#QUARTZ
+#org:
+#  quartz:
+#    scheduler:
+#      instanceId: AUTO
+#    jobStore:
+#      class: org.quartz.impl.jdbcjobstore.JobStoreTX
+#      driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+#      tablePrefix: QRTZ
+#      misfireThreshold: 60000
+#      clusterCheckinInterval: 1000
+#      isClustered: true
+#    threadPool:
+#      class: org.quartz.simpl.SimpleThreadPool
+#      threadCount: 10
+#      threadsInheritContextClassLoaderOfInitializingThread: true
+
+datasource:
+  hikari:
+    leak-detection-threshold: 2000

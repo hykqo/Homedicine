@@ -1,0 +1,12 @@
+spring:
+  #DB
+  datasource:
+    url: jdbc:mysql://localhost:3306/homedicine_test_db?tinyInt1isBit=false&characterEncoding=UTF-8&connectTimeout=300000
+    username: ENC(53FRuhgsU5zarlJuH26hw+hLr4LEzZv0)
+    password: ENC(oDnV2Jdm2xv7RQ71VgB/PHfWuiAERb/D)
+
+  #JPA
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
