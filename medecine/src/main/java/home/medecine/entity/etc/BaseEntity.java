@@ -1,5 +1,7 @@
 package home.medecine.entity.etc;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
@@ -10,11 +12,13 @@ public abstract class BaseEntity {
     private String createdBy;
 
     @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime createDate;
 
     private String insertedBy;
 
     @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime inserteDate;
 
     public String getCreatedBy() {
