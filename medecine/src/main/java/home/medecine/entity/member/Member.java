@@ -96,5 +96,8 @@ public class Member extends BaseEntity {
     public LoginFailed getLoginFailed() {
         return loginFailed;
     }
-    
+
+    public void updateLoginFailed(LoginFailed lf){
+        this.loginFailed = lf;
+    }
 }

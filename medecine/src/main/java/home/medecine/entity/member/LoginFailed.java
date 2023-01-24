@@ -11,7 +11,6 @@ import javax.persistence.Enumerated;
 import java.time.LocalDateTime;
 
 @Embeddable
-@AllArgsConstructor
 @NoArgsConstructor
 public class LoginFailed {
 
@@ -28,6 +27,10 @@ public class LoginFailed {
     @Column(name = "FAILED_STATUS")
     private LoginFailedStatus status;
 
+    public LoginFailed(int failedAttempt, LoginFailedStatus status) {
+        this.failedAttempt = failedAttempt;
+        this.status = status;
+    }
 
     public boolean is_locked(){
         if(this.status.equals(LoginFailedStatus.LOCK)) return true;

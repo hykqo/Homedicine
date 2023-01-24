@@ -10,6 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final LoginSuccessHandler loginSuccessHandler;
+    private final LoginFailerHandler loginFailerHandler;
 
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
@@ -32,7 +33,7 @@ public class SecurityConfig {
                 .loginProcessingUrl("/login-proc")
                 .defaultSuccessUrl("/")
                 .successHandler(loginSuccessHandler)
-                .failureHandler()
-
+                .failureHandler(loginFailerHandler);
+        return http.build();
     }
 }

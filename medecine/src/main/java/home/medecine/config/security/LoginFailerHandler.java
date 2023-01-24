@@ -1,6 +1,7 @@
 package home.medecine.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
@@ -17,7 +18,10 @@ import java.util.Map;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class LoginFailerHandler implements AuthenticationFailureHandler {
+
+    private final HandlerService handlerService;
 
     /*
     - 실패한 인증 시도를 처리하는 데 사용되는 전략입니다.
@@ -34,8 +38,6 @@ public class LoginFailerHandler implements AuthenticationFailureHandler {
     LockedException : 계정잠김
     */
 
-    private static final int MAX_ATTEMPT = 5;
-    private static final int LOCK_TIME = (1000 * 60) * 100;
 
     @Override
     public void onAuthenticationFailure(
@@ -59,7 +61,7 @@ public class LoginFailerHandler implements AuthenticationFailureHandler {
             ObjectMapper objectMapper = new ObjectMapper();
 
             Map<String, Object> responseMap = new HashMap<>();
-            String message = getExceptionMessage(exception);
+            String message = getExceptionMessage(exception, id);
             responseMap.put("status", 401);
             responseMap.put("message", message);
             response.getOutputStream().println(objectMapper.writeValueAsString(responseMap));
@@ -71,10 +73,9 @@ public class LoginFailerHandler implements AuthenticationFailureHandler {
         }
     }
 
-    private String getExceptionMessage(AuthenticationException exception) {
+    private String getExceptionMessage(AuthenticationException exception, String id) {
         if (exception instanceof BadCredentialsException) {
-
-
+            handlerService.BadCredendtial(id);
             return "비밀번호불일치";
         } else if (exception instanceof UsernameNotFoundException) {
             return "계정없음";
