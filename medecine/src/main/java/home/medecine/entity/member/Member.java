@@ -50,6 +50,8 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private MemberGrade grade;
 
+    @Embedded
+    private LoginFailed loginFailed;
 
     public Long getIdx() {
         return idx;
@@ -90,4 +92,9 @@ public class Member extends BaseEntity {
     public List<Ocr> getOcr() {
         return ocr;
     }
+
+    public LoginFailed getLoginFailed() {
+        return loginFailed;
+    }
+    
 }
