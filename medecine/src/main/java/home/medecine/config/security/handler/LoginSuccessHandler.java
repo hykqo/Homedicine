@@ -1,7 +1,8 @@
-package home.medecine.config.security;
+package home.medecine.config.security.handler;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -14,6 +15,7 @@ import java.io.IOException;
 
 @Component
 @Slf4j
+@Primary
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     /*-
@@ -47,8 +49,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();
         log.info("로그인 계정 : "+ username);
-
-
         response.sendRedirect(request.getContextPath());
     }
 }

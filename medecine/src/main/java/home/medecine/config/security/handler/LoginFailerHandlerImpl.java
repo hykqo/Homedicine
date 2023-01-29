@@ -1,13 +1,14 @@
-package home.medecine.config.security;
+package home.medecine.config.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,11 +17,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-@Slf4j
 @RequiredArgsConstructor
-public class LoginFailerHandler implements AuthenticationFailureHandler {
+@Primary
+public class LoginFailerHandlerImpl implements AuthenticationFailureHandler {
 
-    private final HandlerService handlerService;
+    private final HandlerService handlerServiceImpl;
 
     /*
     - 실패한 인증 시도를 처리하는 데 사용되는 전략입니다.
@@ -73,7 +74,7 @@ public class LoginFailerHandler implements AuthenticationFailureHandler {
 
     private String getExceptionMessage(AuthenticationException exception, String id) {
         if (exception instanceof BadCredentialsException) {
-            handlerService.BadCredendtial(id);
+            handlerServiceImpl.BadCredendtial(id);
             return "비밀번호불일치";
         } else if (exception instanceof UsernameNotFoundException) {
             return "계정없음";

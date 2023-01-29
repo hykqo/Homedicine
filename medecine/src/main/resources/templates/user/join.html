@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Twenty by HTML5 UP</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+    <noscript><link rel="stylesheet" th:href="@{/assets/css/noscript.css}" /></noscript>
+</head>
+<body>
+  <form id="join_form">
+      <input type="text" id="id" name="id" placeholder="아이디"/>
+      <input type="password" id="pw" name="pw" placeholder="비밀번호"/>
+      <input type="text" id="name" name="name" placeholder="이름"/>
+      <input type="email" id="email" name="email" placeholder="이메일"/>
+      <input type="text" id="phone" name="phone" placeholder="전화번호"/>
+      <label for="birth">생일</label>
+      <input type="date" id="birth" name="birth">
+      <input type="hidden" value="GENERAL" name="grade">
+  </form>
+  <button type="button" id="join">가입하기</button>
+</body>
+<script th:src="@{/js/join.js}"></script>
+</html>

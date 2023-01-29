@@ -1,17 +1,18 @@
 package home.medecine.entity.member;
 
+import home.medecine.dto.MemberDTO;
 import home.medecine.entity.Bag;
 import home.medecine.entity.Ocr;
 import home.medecine.entity.etc.BaseEntity;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Entity(name = "MEMBER")
-@NoArgsConstructor
 public class Member extends BaseEntity {
 
     @Id
@@ -27,7 +28,7 @@ public class Member extends BaseEntity {
     private List<Ocr> ocr;
 
     @Column(nullable = false)
-    private String id;
+    private String mbId;
 
     @Column(nullable = false)
     private String pw;
@@ -37,6 +38,9 @@ public class Member extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private String phone;
 
     @Column(nullable = false)
     @CreationTimestamp
@@ -57,8 +61,8 @@ public class Member extends BaseEntity {
         return idx;
     }
 
-    public String getId() {
-        return id;
+    public String getMbId() {
+        return mbId;
     }
 
     public String getPw() {
@@ -99,5 +103,17 @@ public class Member extends BaseEntity {
 
     public void updateLoginFailed(LoginFailed lf){
         this.loginFailed = lf;
+    }
+
+    public static Member SIGN_UP(MemberDTO.Join join, String encodePw) {
+        Member member = new Member();
+        member.mbId = join.getId();
+        member.pw = encodePw;
+        member.email = join.getEmail();
+        member.name = join.getName();
+        member.birth = join.getBirth();
+        member.status = join.getStatus();
+        member.grade = join.getGrade();
+        return member;
     }
 }

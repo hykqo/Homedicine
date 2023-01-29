@@ -17,19 +17,16 @@ public class LoginFailed {
     @Column(columnDefinition = "INTEGER DEFAULT 0")
     private int failedAttempt;
 
-    @CreationTimestamp
-    private int lockTime;
-
-    @CreationTimestamp
-    private LocalDateTime lastTryTime;
+    private LocalDateTime lockTime;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "FAILED_STATUS")
     private LoginFailedStatus status;
 
-    public LoginFailed(int failedAttempt, LoginFailedStatus status) {
+    public LoginFailed(int failedAttempt, LoginFailedStatus status, LocalDateTime lockTime) {
         this.failedAttempt = failedAttempt;
         this.status = status;
+        this.lockTime = lockTime;
     }
 
     public boolean is_locked(){
@@ -41,13 +38,7 @@ public class LoginFailed {
         return failedAttempt;
     }
 
-    public int getLockTime() {
-        return lockTime;
-    }
-
-    public LocalDateTime getLastTryTime() {
-        return lastTryTime;
-    }
+    public LocalDateTime getLockTime() {return lockTime;}
 
     public LoginFailedStatus getStatus() {
         return status;
