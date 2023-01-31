@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" th:href="@{assets/css/main.css}" />
-    <noscript><link rel="stylesheet" th:href="@{assets/css/noscript.css}" /></noscript>
+    <noscript><link rel="stylesheet" th:href="@{/assets/css/noscript.css}" /></noscript>
 </head>
 <body class="index is-preload">
 <div id="page-wrapper">
@@ -253,9 +253,7 @@
         <ul class="copyright">
             <li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
         </ul>
-
     </footer>
-
 </div>
 
 <!-- Scripts -->
@@ -267,6 +265,6 @@
 <script th:src="@{assets/js/breakpoints.min.js}"></script>
 <script th:src="@{assets/js/util.js}"></script>
 <script th:src="@{assets/js/main.js}"></script>
-
+<script th:src="@{dist/bundle.js}"></script>
 </body>
 </html>

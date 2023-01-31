@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequiredArgsConstructor
 public class HomeController {
 
-    @GetMapping({"/", "/medicine"})
+    @GetMapping({"/","/medicine"})
     public ModelAndView home(ModelAndView mav){
         mav.setViewName("/medicine/home");
         return mav;
