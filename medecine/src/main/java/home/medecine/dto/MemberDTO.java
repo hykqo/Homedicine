@@ -5,27 +5,36 @@ import home.medecine.entity.Ocr;
 import home.medecine.entity.member.MemberGrade;
 import home.medecine.entity.member.MemberStatus;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
-import org.hibernate.annotations.CreationTimestamp;
-
-import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class MemberDTO {
 
-    @Data
+    @Getter
     @NoArgsConstructor
     public static class Join {
+        @NotNull
+        @NotEmpty //String 전용
         private String id;
+        @NotNull
+        @NotEmpty
         private String pw;
+        @NotNull
+        @NotEmpty
         private String email;
+        @NotNull
+        @NotEmpty
         private String name;
+        @NotNull
+        @NotEmpty
         private String phone;
-        private LocalDateTime birth;
-        private MemberGrade grade;
+        @NotNull
+        private LocalDate birth;
         private MemberStatus status;
     }
 
@@ -42,6 +51,7 @@ public class MemberDTO {
         private List<Bag> bags;
         private List<Ocr> ocr;
         private LocalDateTime createDate;
-
     }
+
+
 }

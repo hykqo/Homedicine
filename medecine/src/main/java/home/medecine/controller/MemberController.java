@@ -1,12 +1,16 @@
 package home.medecine.controller;
 
 import home.medecine.dto.MemberDTO;
+import home.medecine.entity.member.Member;
 import home.medecine.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,7 +33,7 @@ public class MemberController {
     }
 
     @PostMapping("/join")
-    public ResponseEntity join(@RequestBody MemberDTO.Join join) throws Exception {
+    public ResponseEntity join(@Valid @RequestBody MemberDTO.Join join) throws Exception {
         memberService.Join(join);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -40,6 +44,9 @@ public class MemberController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-
-
+    @GetMapping("/{id}")
+    public ResponseEntity getMember(long idx){
+        Member member = memberService.findById(idx);
+        return new ResponseEntity(member, HttpStatus.OK);
+    }
 }
