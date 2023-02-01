@@ -43,6 +43,9 @@ out/
 node_modules
 package-lock.json
 **/dist/
+**/dist/bundle.js
+**/dist/bundle.js.map
+
 
 # Package Files #
 *.jar
