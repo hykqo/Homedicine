@@ -51,8 +51,8 @@ public class LoginFailerHandlerImpl implements AuthenticationFailureHandler {
          * 3. 아이디가 잠긴경우 이메일을 통해 풀리도록 구현.
          * 4. 비밀번호 찾기 기능 구현*/
 
-        String id = request.getParameter("id");
-        String pw = request.getParameter("pw");
+        String id = request.getParameter("username");
+        String pw = request.getParameter("password");
         String error = exception.getMessage();
 
 
