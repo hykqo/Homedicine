@@ -4,15 +4,18 @@ import home.medecine.dto.MemberDTO;
 import home.medecine.entity.Bag;
 import home.medecine.entity.Ocr;
 import home.medecine.entity.etc.BaseEntity;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@RequiredArgsConstructor
+
 @Entity(name = "MEMBER")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseEntity {
 
     @Id
@@ -43,11 +46,11 @@ public class Member extends BaseEntity {
     private String phone;
 
     @Column(nullable = false)
-    @CreationTimestamp
-    private LocalDateTime birth;
+    private LocalDate birth;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @ColumnDefault("'ACTIVE'")
     private MemberStatus status;
 
     @Enumerated(EnumType.STRING)
@@ -77,7 +80,7 @@ public class Member extends BaseEntity {
         return name;
     }
 
-    public LocalDateTime getBirth() {
+    public LocalDate getBirth() {
         return birth;
     }
 
@@ -105,15 +108,16 @@ public class Member extends BaseEntity {
         this.loginFailed = lf;
     }
 
-    public static Member SIGN_UP(MemberDTO.Join join, String encodePw) {
+    public static Member SIGN_UP(final MemberDTO.Join join, final String encodePw, MemberGrade grade) {
         Member member = new Member();
         member.mbId = join.getId();
         member.pw = encodePw;
         member.email = join.getEmail();
         member.name = join.getName();
         member.birth = join.getBirth();
-        member.status = join.getStatus();
-        member.grade = join.getGrade();
+        member.phone = join.getPhone();
+        member.grade = grade;
+        member.status = MemberStatus.ACTIVE;
         return member;
     }
 }

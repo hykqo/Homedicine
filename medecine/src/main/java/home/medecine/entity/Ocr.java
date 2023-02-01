@@ -12,7 +12,7 @@ public class Ocr extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idx;
 
     @ManyToOne
     @JoinColumn(name = "MB_IDX")
@@ -23,7 +23,7 @@ public class Ocr extends BaseEntity {
     private Medicine medicine;
 
     public Long getId() {
-        return id;
+        return idx;
     }
 
     public Member getMember() {
