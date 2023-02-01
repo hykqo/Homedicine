@@ -38,3 +38,18 @@ out/
 
 ### application.yml ###
 **/application-jasypt.yml
+
+### Node.js ###
+node_modules
+package-lock.json
+**/dist/
+
+# Package Files #
+*.jar
+
+# Log file
+*.log
+
+### Java ###
+# Compiled class file
+*.class
