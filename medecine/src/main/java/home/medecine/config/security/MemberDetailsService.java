@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class MemberDetailsService implements UserDetailsService {
 
     private final MemberJpaRepository memberJpaRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        Member member = memberJpaRepository.findByMbId(id).orElse(null);
-        if(member != null) return null;
-        return new UserDetailsImpl(member);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Member member = memberJpaRepository.findByMbId(username).orElse(null);
+        if(member != null) return new MemberDetails(member);
+        else return null;
     }
 }
