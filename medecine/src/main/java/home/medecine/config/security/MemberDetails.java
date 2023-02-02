@@ -20,6 +20,7 @@ public class MemberDetails implements UserDetails {
         this.member = member;
     }
 
+    //계정이 갖고 있는 권한 목록을 리턴한다.
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collect = new ArrayList<>();
@@ -33,23 +34,27 @@ public class MemberDetails implements UserDetails {
     @Override
     public String getUsername() {return member.getMbId();}
 
+    //계정이 만료되지 않은는지를 리턴한다(true : 만료되지 않음)
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
+    //계정이 잠겨있지 않은지를 리턴한다(true : 잠겨있지 않음)
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
+    //계정의 패스워드가 만료되지 않았는지를 리턴한다(true : 만료되지 않음)
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
+    //계정이 사용가능한 계정인지 리턴한타(true : 사용가능한 계정)
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
