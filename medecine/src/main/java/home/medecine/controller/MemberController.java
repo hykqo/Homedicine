@@ -2,6 +2,7 @@ package home.medecine.controller;
 
 import home.medecine.dto.MemberDTO;
 import home.medecine.entity.member.Member;
+import home.medecine.entity.member.MemberGrade;
 import home.medecine.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -44,9 +45,11 @@ public class MemberController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity getMember(long idx){
-        Member member = memberService.findById(idx);
-        return new ResponseEntity(member, HttpStatus.OK);
+    @GetMapping("/{idx}")
+    public ResponseEntity getMember(@PathVariable long idx){
+        MemberDTO.MemberInfo memberInfo = memberService.findById(idx);
+        String role = memberInfo.getGrade().toString();
+        System.out.println(role);
+        return new ResponseEntity(memberInfo, HttpStatus.OK);
     }
 }

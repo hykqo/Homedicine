@@ -4,7 +4,6 @@ import home.medecine.dto.MemberDTO;
 import home.medecine.entity.member.Member;
 import home.medecine.entity.member.MemberGrade;
 import home.medecine.repository.MemberJpaRepository;
-import home.medecine.service.FormatterService;
 import home.medecine.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
@@ -27,7 +26,7 @@ public class MemberServiceImpl implements MemberService {
     public Member Join(MemberDTO.Join join) {
         checkId(join.getId());
         checkId(join.getPhone());
-        Member member = Member.SIGN_UP(join, passwordEncoder.encode(join.getPw()), MemberGrade.GENERAL);
+        Member member = Member.SIGN_UP(join, passwordEncoder.encode(join.getPw()), MemberGrade.ROLE_MEMBER);
         memberJpaRepository.save(member);
         return member;
     }
@@ -57,9 +56,14 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Transactional
-    public Member findById(final Long id){
+    public MemberDTO.MemberInfo findById(final Long id){
         final Optional<Member> member = memberJpaRepository.findById(id);
         member.orElseThrow(()->new MemberException.MemberNotFoundException(id));
-        return member.get();
+        return formatMemberInfo(member.get());
+    }
+
+    public MemberDTO.MemberInfo formatMemberInfo(final Member member){
+       MemberDTO.MemberInfo memberInfo = new MemberDTO.MemberInfo();
+       return memberInfo.createMemberInfo(member);
     }
 }

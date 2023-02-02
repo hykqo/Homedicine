@@ -9,5 +9,5 @@ public interface MemberService {
     void checkId(String id);
     void checkPhone(String phone);
     void checkEmail(String email);
-    public Member findById(final Long id);
+    public MemberDTO.MemberInfo findById(final Long id);
 }

@@ -2,8 +2,10 @@ package home.medecine.dto;
 
 import home.medecine.entity.Bag;
 import home.medecine.entity.Ocr;
+import home.medecine.entity.member.Member;
 import home.medecine.entity.member.MemberGrade;
 import home.medecine.entity.member.MemberStatus;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,12 +47,26 @@ public class MemberDTO {
         private String name;
         private String email;
         private String phone;
-        private LocalDateTime birth;
+        private LocalDate birth;
         private MemberGrade grade;
         private MemberStatus status;
         private List<Bag> bags;
         private List<Ocr> ocr;
         private LocalDateTime createDate;
+
+        public MemberInfo createMemberInfo(Member member){
+            MemberInfo memberInfo = new MemberInfo();
+            memberInfo.idx = member.getIdx();
+            memberInfo.id = member.getMbId();
+            memberInfo.name = member.getName();
+            memberInfo.email = member.getEmail();
+            memberInfo.phone = member.getPhone();
+            memberInfo.birth = member.getBirth();
+            memberInfo.grade = member.getGrade();
+            memberInfo.status = member.getStatus();
+            memberInfo.createDate = member.getCreateDate();
+            return memberInfo;
+        }
     }
 
 
