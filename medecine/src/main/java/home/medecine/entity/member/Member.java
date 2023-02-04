@@ -120,4 +120,6 @@ public class Member extends BaseEntity {
         member.status = MemberStatus.ACTIVE;
         return member;
     }
+
+    public void updatePw(String pw){this.pw = pw;}
 }

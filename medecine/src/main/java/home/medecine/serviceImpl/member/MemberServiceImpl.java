@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 @Primary
 public class MemberServiceImpl implements MemberService {
@@ -22,7 +23,6 @@ public class MemberServiceImpl implements MemberService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    @Transactional
     public Member Join(MemberDTO.Join join) {
         checkId(join.getId());
         checkId(join.getPhone());
@@ -55,15 +55,36 @@ public class MemberServiceImpl implements MemberService {
         member.orElseThrow(()->new MemberException.EmailDuplicateException(emaail));
     }
 
-    @Transactional
+    @Override
     public MemberDTO.MemberInfo findById(final Long id){
         final Optional<Member> member = memberJpaRepository.findById(id);
         member.orElseThrow(()->new MemberException.MemberNotFoundException(id));
         return formatMemberInfo(member.get());
     }
 
+    @Override
     public MemberDTO.MemberInfo formatMemberInfo(final Member member){
        MemberDTO.MemberInfo memberInfo = new MemberDTO.MemberInfo();
        return memberInfo.createMemberInfo(member);
+    }
+
+    @Override
+    public MemberDTO.FindIdDTO findIdByName$Phone(MemberDTO.FindIdDTO findIdInfo) {
+        Optional<Member> member = memberJpaRepository.findByNameAndPhone(findIdInfo.getName(), findIdInfo.getPhone());
+        member.orElseThrow(()->new MemberException.Member$InfoNotFountException("[name:"+findIdInfo.getName()+", phone:"+findIdInfo.getPhone()+"], [result : 0]"));
+        findIdInfo.setResponseID(member.get().getMbId());
+        return findIdInfo;
+    }
+
+    @Override
+    public Member findById$Name$Phone(MemberDTO.FindPwDTO findPwDTO) {
+        Optional<Member> member = memberJpaRepository.findByMbIdAndNameAndPhone(findPwDTO.getId(), findPwDTO.getName(), findPwDTO.getPhone());
+        member.orElseThrow(()->new MemberException.Member$InfoNotFountException("[id:"+findPwDTO.getId()+", name:"+findPwDTO.getName()+", phone:"+findPwDTO.getPhone()+"], [result : 0]"));
+        return member.get();
+    }
+
+    @Override
+    public void updatePassword(Member member, String pw) {
+        member.updatePw(passwordEncoder.encode(pw));
     }
 }

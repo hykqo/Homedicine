@@ -5,7 +5,6 @@ import home.medecine.entity.Ocr;
 import home.medecine.entity.member.Member;
 import home.medecine.entity.member.MemberGrade;
 import home.medecine.entity.member.MemberStatus;
-import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -69,5 +68,34 @@ public class MemberDTO {
         }
     }
 
+    @Getter
+    @NoArgsConstructor
+    public static class FindIdDTO {
+        private String id;
+        @NotNull
+        @NotEmpty
+        private String name;
+        @NotNull
+        @NotEmpty
+        private String phone;
 
+        public void setResponseID(String id) {
+            this.id = id;
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor
+    public static class FindPwDTO {
+        @NotNull
+        @NotEmpty
+        private String id;
+        @NotNull
+        @NotEmpty
+        private String name;
+        @NotNull
+        @NotEmpty
+        private String phone;
+        private String pw;
+    }
 }

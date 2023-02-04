@@ -10,4 +10,8 @@ public interface MemberService {
     void checkPhone(String phone);
     void checkEmail(String email);
     public MemberDTO.MemberInfo findById(final Long id);
+    public MemberDTO.FindIdDTO findIdByName$Phone(MemberDTO.FindIdDTO findIdInfo);
+    public Member findById$Name$Phone(MemberDTO.FindPwDTO findPwDTO);
+    public MemberDTO.MemberInfo formatMemberInfo(final Member member);
+    public void updatePassword(Member member, String pw);
 }
