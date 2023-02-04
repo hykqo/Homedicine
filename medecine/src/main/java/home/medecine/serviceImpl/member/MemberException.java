@@ -24,10 +24,12 @@ public class MemberException {
         }
     }
 
+    public static class Member$InfoNotFountException extends BusinessException{
+        public Member$InfoNotFountException(String message) { super(message, ErrorCode.MEMBER_NOT_FOUNT); }
+    }
+
     public static class MemberNotFoundException extends EntityNotFoundException{
-        public MemberNotFoundException(Long id) {
-            super(id+" is Not Found");
-        }
+        public MemberNotFoundException(Long id) { super(id+" is Not Found"); }
     }
 
 
