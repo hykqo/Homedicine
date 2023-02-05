@@ -68,7 +68,7 @@ public class MemberController {
     @PostMapping("/find/pw")
     public ResponseEntity findPw(@RequestBody @Valid MemberDTO.FindPwDTO findPwInfo){
         memberService.findById$Name$Phone(findPwInfo);
-        return new ResponseEntity(findPwInfo, HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping("/update/pw")
