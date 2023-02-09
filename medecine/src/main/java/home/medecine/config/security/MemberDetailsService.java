@@ -6,7 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -15,9 +18,11 @@ public class MemberDetailsService implements UserDetailsService {
     private final MemberJpaRepository memberJpaRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = memberJpaRepository.findByMbId(username).orElse(null);
-        if(member != null) return new MemberDetails(member);
-        else return null;
+    public UserDetails loadUserByUsername(String username) {
+        Optional<Member> member = memberJpaRepository.findByMbId(username);
+        member.orElseThrow(() ->
+                new UsernameNotFoundException(username));
+
+        return new MemberDetails(member.get());
     }
 }

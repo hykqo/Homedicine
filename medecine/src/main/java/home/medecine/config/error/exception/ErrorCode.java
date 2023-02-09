@@ -3,12 +3,19 @@ package home.medecine.config.error.exception;
 public enum ErrorCode {
 
     /** Common */
-    INVALID_INPUT_VALUE(400, "C001", " Invalid Input Value"),
-    METHOD_NOT_ALLOWED(405, "C002", "Invalid Input Value"),
-    ENTITY_NOT_FOUND(400, "C003", " Entity Not Found"),
-    INTERNAL_SERVER_ERROR(500, "C004", "Server Error"),
-    INVALID_TYPE_VALUE(400, "C005", " Invalid Type Value"),
-    HANDLE_ACCESS_DENIED(403, "C006", "Access is Denied"),
+    INVALID_INPUT_VALUE(400, "C01", " Invalid Input Value"),
+    METHOD_NOT_ALLOWED(405, "C02", "Invalid Input Value"),
+    ENTITY_NOT_FOUND(400, "C03", " Entity Not Found"),
+    INTERNAL_SERVER_ERROR(500, "C04", "Server Error"),
+    INVALID_TYPE_VALUE(400, "C05", " Invalid Type Value"),
+
+    /** Auth */
+    HANDLE_ACCESS_DENIED(401, "S06", "알수 없는 이유로 로그인에 실패하였습니다. 관리자에게 문의하세요."),
+    BAD_CREDENTIALS(401, "S06-1", "비밀번호가 맞지 않습니다."),
+    ACCOUNT_EXPIRED(401, "S06-2", "만료된 계정입니다."),
+    CREDENTIAL_EXPIRED(401, "S06-3", "비밀번호가 만료되었습니다."),
+    ACCOUNT_DISABLED(401, "S06-4", "비활성화된 계정입니다."),
+    ACCOUNT_LOCKED(401, "S06-5", "잠긴 계정입니다."),
 
     /** Member */
     //join
