@@ -33,6 +33,7 @@ public class SecurityConfig {
 
     private final DataSource dataSource;
     private final UserDetailsService userDetailsService;
+    private final AuthenticationFailureHandler failureHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
@@ -47,6 +48,7 @@ public class SecurityConfig {
                     .loginPage("/user/login")
                     .loginProcessingUrl("/login")
                     .defaultSuccessUrl("/")
+                    .failureHandler(failureHandler)
                 .and()
                     .logout()
                     .logoutUrl("/logout")
