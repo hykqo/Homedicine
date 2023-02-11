@@ -11,11 +11,11 @@ public enum ErrorCode {
 
     /** Auth */
     HANDLE_ACCESS_DENIED(401, "S06", "알수 없는 이유로 로그인에 실패하였습니다. 관리자에게 문의하세요."),
-    BAD_CREDENTIALS(401, "S06-1", "비밀번호가 맞지 않습니다."),
-    ACCOUNT_EXPIRED(401, "S06-2", "만료된 계정입니다."),
-    CREDENTIAL_EXPIRED(401, "S06-3", "비밀번호가 만료되었습니다."),
-    ACCOUNT_DISABLED(401, "S06-4", "비활성화된 계정입니다."),
-    ACCOUNT_LOCKED(401, "S06-5", "잠긴 계정입니다."),
+    BAD_CREDENTIALS(400, "S06-1", "비밀번호가 맞지 않습니다."),
+    ACCOUNT_EXPIRED(400, "S06-2", "만료된 계정입니다."),
+    CREDENTIAL_EXPIRED(400, "S06-3", "비밀번호가 만료되었습니다."),
+    ACCOUNT_DISABLED(400, "S06-4", "비활성화된 계정입니다."),
+    ACCOUNT_LOCKED(400, "S06-5", "잠긴 계정입니다."),
 
     /** Member */
     //join
@@ -49,5 +49,14 @@ public enum ErrorCode {
 
     public int getStatus() {
         return status;
+    }
+
+    @Override
+    public String toString() {
+        return "ErrorCode{" +
+                "code='" + code + '\'' +
+                ", message='" + message + '\'' +
+                ", status=" + status +
+                '}';
     }
 }
