@@ -3,13 +3,14 @@ package home.medecine.config.security;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import home.medecine.config.error.ErrorResponse;
 import home.medecine.config.error.exception.ErrorCode;
+import home.medecine.config.security.service.FailureService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,32 +20,34 @@ import java.io.IOException;
 @Component
 @Primary
 @Slf4j
+@RequiredArgsConstructor
 public class LoginFailureHandler implements AuthenticationFailureHandler {
 
     private ObjectMapper objectMapper = new ObjectMapper();
+    private final FailureService failureService;
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
             throws IOException, ServletException {
         String username = request.getParameter("username");
-        ErrorResponse errorResponse = HandleLoginException(exception);
+        ErrorResponse errorResponse = HandleLoginException(exception, username);
         formatServletResponse(response, errorResponse).flushBuffer();
     }
 
     //실패 로직 분류
-    public ErrorResponse HandleLoginException(AuthenticationException e){
+    public ErrorResponse HandleLoginException(AuthenticationException e,String username){
         /**
          * Authentication 비밀번호 불일치
          */
         if(e instanceof BadCredentialsException) {
             log.error("handleBadCredentialsException", e);
-            return ErrorResponse.of(ErrorCode.BAD_CREDENTIALS);
+            return failureService.handleBadCredentials(username);
         }
         /**
          * Authentication 계정 없음.
          */
         else if(e instanceof UsernameNotFoundException){
-            log.error("handleUsernameNotFoundException", e);
+            log.error("handleUsernameNotFoundExceptieon", e);
             return ErrorResponse.of(ErrorCode.MEMBER_NOT_FOUNT);
         }
         /**
@@ -66,6 +69,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
          */
         else if(e instanceof DisabledException){
             log.error("handleDisabledException", e);
+
             return ErrorResponse.of(ErrorCode.ACCOUNT_DISABLED);
         }
         /**

@@ -19,10 +19,10 @@ public class MemberDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        Optional<Member> member = memberJpaRepository.findByMbId(username);
-        member.orElseThrow(() ->
-                new UsernameNotFoundException(username));
+        Member member = memberJpaRepository.findByMbId(username).orElse(null);
+//        member.orElseThrow(() ->
+//                new UsernameNotFoundException(username));
 
-        return new MemberDetails(member.get());
+        return new MemberDetails(member);
     }
 }
